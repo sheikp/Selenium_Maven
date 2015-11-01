@@ -3,7 +3,6 @@ package com.yourcompany;
 /**
  * @author Neil Manvar
  */
-
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
@@ -38,7 +37,7 @@ import static org.testng.Assert.assertEquals;
  * @author Neil Manvar
  */
 @Listeners({SauceOnDemandTestListener.class})
-public class search implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider 
+public class ZampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider 
 {
 
     public String username = System.getenv("SAUCE_USER_NAME") != null ? System.getenv("SAUCE_USER_NAME") : System.getenv("SAUCE_USERNAME");
@@ -90,14 +89,6 @@ public class search implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
      * @throws Exception if an error occurs during the running of the test
      */
     @Test(dataProvider = "hardCodedBrowsers")
-    public void googlesearch(String browser, String version, String os, Method method) throws Exception 
-    {
-        WebDriver driver = createDriver(browser, version, os, method.getName());
-        driver.get("http://www.google.com/");
-        assertEquals(driver.getTitle(), "Google");
-    }
-
-    @Test(dataProvider = "hardCodedBrowsers")
     public void searchtxt(String browser, String version, String os, Method method) throws Exception 
     {
         WebDriver driver = createDriver(browser, version, os, method.getName());
@@ -129,7 +120,8 @@ public class search implements SauceOnDemandSessionIdProvider, SauceOnDemandAuth
      * @return the {@link SauceOnDemandAuthentication} instance containing the Sauce username/access key
      */
     @Override
-    public SauceOnDemandAuthentication getAuthentication() {
+    public SauceOnDemandAuthentication getAuthentication()
+    {
         return authentication;
     }
 }
