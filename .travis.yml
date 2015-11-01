@@ -1,2 +1,7 @@
 language: java
 mvn test
+ 
+env: 
+   global: 
+     - SAUCE_USERNAME=jackchem2003 
+     - SAUCE_ACCESS_KEY=3d4fa22d-12ad-4f18-9168-37ea7d88b522 
