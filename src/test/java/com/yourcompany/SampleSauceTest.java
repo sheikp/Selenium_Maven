@@ -302,7 +302,7 @@ public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthenticat
      Statement stmt = null;
      // JDBC driver name and database URL
      final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-     final String DB_URL = "jdbc:mysql://us-cdbr-azure-central-a.cloudapp.net:3306/ClearDBDispatch";
+     final String DB_URL = "jdbc:mysql://us-cdbr-azure-central-a.cloudapp.net/ClearDBDispatch";
 
      //  Database credentials
      final String USER = "bdedbb1076214d";
