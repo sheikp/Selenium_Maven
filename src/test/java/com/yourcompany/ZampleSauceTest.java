@@ -1,6 +1,18 @@
 package com.yourcompany;
 
 /**
+ * CREATE TABLE `automation_results` (
+  `TestID` int(10) NOT NULL AUTO_INCREMENT,
+  `TestName` char(55) DEFAULT NULL,
+  `Results` char(40) DEFAULT NULL,
+  `Comments` char(250) DEFAULT NULL,
+  `RunID` varchar(15) DEFAULT NULL,
+  `ExecutionTime` datetime DEFAULT NULL,
+  `BuildScenario` varchar(10) DEFAULT NULL,
+  `DefectID` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`TestID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1024 DEFAULT CHARSET=utf8;
+
  * @author Neil Manvar
  */
 
