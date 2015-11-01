@@ -1,6 +1,7 @@
 language: java
-mvn test
+mvn: test
  
+
 env: 
    global: 
      - SAUCE_USERNAME=jackchem2003 
