@@ -44,7 +44,8 @@ public class ZampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
     public String username = System.getenv("SAUCE_USER_NAME") != null ? System.getenv("SAUCE_USER_NAME") : System.getenv("SAUCE_USERNAME");
     public String accesskey = System.getenv("SAUCE_API_KEY") != null ? System.getenv("SAUCE_API_KEY") : System.getenv("SAUCE_ACCESS_KEY");
-   
+    static WebDriver driver; 
+    static Wait<WebDriver> wait; 
     /**
      * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
      * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
@@ -69,40 +70,6 @@ public class ZampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
      */
     
     
-
-public static void Jira_Defects(String defect_Desc,String Defect_Summ, String Build_Id, WebDriver driver) 
-{ 
-	System.out.println("Logging In JIRA"); 
-	driver.get("https://qahacker.atlassian.net/"); 
-	//driver.findElement(By.cssSelector(".login-link")).click(); 
-	driver.findElement(By.id("username")).sendKeys("sujoysengupta05@gmail.com"); 
-	driver.findElement(By.id("password")).sendKeys("05yojus93"); 
-	driver.findElement(By.id("login")).click(); 
-	driver.findElement(By.id("quickSearchInput")).sendKeys(Defect_Summ); 
-    driver.findElement(By.id("quickSearchInput")).sendKeys(Keys.ENTER); 
-    Boolean isPresent = driver.findElements(By.cssSelector(".issue-link")).isEmpty(); 
-    System.out.println(isPresent); 
-    if (isPresent==false) 
-    { 
-    	Boolean status_Check=driver.findElement(By.cssSelector(".jira-issue-status-lozenge")).getText().contains("DONE"); 
-    	System.out.println(driver.findElement(By.cssSelector(".jira-issue-status-lozenge")).getText()); 
-    	System.out.println(status_Check); 
-    	if (status_Check==true) 
-    	{ 
-    		defect_Creation(defect_Desc,Defect_Summ,Build_Id); 
-    	} 
-    	else 
-    	{ 
-    		String defectId=driver.findElement(By.cssSelector(".issue-link")).getText(); 
-    		System.out.println(defectId); 
-    		dbinsert("Selenium",Defect_Summ,defect_Desc,Build_Id,"Failed",defectId); 
-    	}   	 
-    } 
-    else 
-    { 
-    	defect_Creation(defect_Desc,Defect_Summ,Build_Id); 
-    }    			    
-} 
 
 
     @DataProvider(name = "hardCodedBrowsers", parallel = true)
@@ -235,7 +202,43 @@ public static void Jira_Defects(String defect_Desc,String Defect_Summ, String Bu
          }    
      }
 
-    public static void defect_Creation(String defect_Desc,String Defect_Summ,String Build_Id) 
+
+
+public void Jira_Defects(String defect_Desc,String Defect_Summ, String Build_Id, WebDriver driver) 
+{ 
+	System.out.println("Logging In JIRA"); 
+	driver.get("https://qahacker.atlassian.net/"); 
+	//driver.findElement(By.cssSelector(".login-link")).click(); 
+	driver.findElement(By.id("username")).sendKeys("sujoysengupta05@gmail.com"); 
+	driver.findElement(By.id("password")).sendKeys("05yojus93"); 
+	driver.findElement(By.id("login")).click(); 
+	driver.findElement(By.id("quickSearchInput")).sendKeys(Defect_Summ); 
+    driver.findElement(By.id("quickSearchInput")).sendKeys(Keys.ENTER); 
+    Boolean isPresent = driver.findElements(By.cssSelector(".issue-link")).isEmpty(); 
+    System.out.println(isPresent); 
+    if (isPresent==false) 
+    { 
+    	Boolean status_Check=driver.findElement(By.cssSelector(".jira-issue-status-lozenge")).getText().contains("DONE"); 
+    	System.out.println(driver.findElement(By.cssSelector(".jira-issue-status-lozenge")).getText()); 
+    	System.out.println(status_Check); 
+    	if (status_Check==true) 
+    	{ 
+    		defect_Creation(defect_Desc,Defect_Summ,Build_Id,driver); 
+    	} 
+    	else 
+    	{ 
+    		String defectId=driver.findElement(By.cssSelector(".issue-link")).getText(); 
+    		System.out.println(defectId); 
+    		dbinsert("Selenium",Defect_Summ,defect_Desc,Build_Id,"Failed",defectId); 
+    	}   	 
+    } 
+    else 
+    { 
+    	defect_Creation(defect_Desc,Defect_Summ,Build_Id,driver); 
+    }    			    
+} 
+
+    public void defect_Creation(String defect_Desc,String Defect_Summ,String Build_Id, WebDriver driver) 
     {   
     	System.out.println("Creating JIRA Defect"); 
         driver.findElement(By.id("create_link")).click(); 
