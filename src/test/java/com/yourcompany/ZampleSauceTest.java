@@ -44,8 +44,7 @@ public class ZampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
     public String username = System.getenv("SAUCE_USER_NAME") != null ? System.getenv("SAUCE_USER_NAME") : System.getenv("SAUCE_USERNAME");
     public String accesskey = System.getenv("SAUCE_API_KEY") != null ? System.getenv("SAUCE_API_KEY") : System.getenv("SAUCE_ACCESS_KEY");
-    static WebDriver driver; 
-    static Wait<WebDriver> wait; 
+   
     /**
      * Constructs a {@link SauceOnDemandAuthentication} instance using the supplied user name/access key.  To use the authentication
      * supplied by environment variables or from an external file, use the no-arg {@link SauceOnDemandAuthentication} constructor.
@@ -105,9 +104,7 @@ public class ZampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
 
         String jobName = methodName + '_' + os + '_' + browser + '_' + version;
         capabilities.setCapability("name", jobName);
-        webDriver.set(new RemoteWebDriver(
-                new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
-                capabilities));
+        webDriver.set(new RemoteWebDriver( new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),   capabilities));
         String id = ((RemoteWebDriver) getWebDriver()).getSessionId().toString();
         sessionId.set(id);
 
@@ -151,7 +148,7 @@ public class ZampleSauceTest implements SauceOnDemandSessionIdProvider, SauceOnD
          		{ 
          			driver.close(); 
                      driver.quit(); 
-                     driver = new FirefoxDriver(); 
+                     driver = createDriver(browser, version, os, method.getName());
          			driver.get("https://travis-ci.org/"); 
          	    	driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS); 
          	    	driver.findElement(By.xpath("/html/body/div/div/div[2]/div[1]/div/div[1]/button")).click(); 
